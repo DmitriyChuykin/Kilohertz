@@ -1,4 +1,4 @@
 ﻿label start:
     stop music
-    jump chapter0
+    jump day0
     return
