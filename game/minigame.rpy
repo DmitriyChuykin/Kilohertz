@@ -222,9 +222,12 @@ label minigame:
             #music_delay = int(str(N[51]).split("'")[1].split(",")[0])/1000
             music_delay = 0
             renpy.music.play(["<silence " + str(music_countdown) +">","OSU_Maps/" +track], "music")
-            #test = str(N[234]).split("'")[1].split("\\")[0] == "[HitObjects]"
-            objects_index_start = N.index(bytes('[HitObjects]\r\n', 'utf-8')) + 1
-            #for notes in range(objects_index_start+1,fsize):
+            i = 0
+            while (not (str(N[i]).split("'")[1].split("\\")[0]  == "[HitObjects]")):
+                i+=1
+            objects_index_start = i + 1
+            #test = "|" + str(N[157]) + "|" + str(bytes('[HitObjects]\r\n', 'utf-8')) + "|"
+            #test = N.index(bytes('[HitObjects]\r\n', 'utf-8')) + 1
             chunk = 0
             if (fsize < objects_index_start + chunk):
                 chunk = fsize - objects_index_start

@@ -2,9 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/minigame.rpy", line 69: expected an indented block
-            else:
-             ^
+File "game/minigame.rpy", line 226: invalid syntax
+        while (not (str(N[i]).split("'")[1].split("\\")[0]  == "[HitObjects]"))
 
 Ren'Py Version: Ren'Py 8.1.2.23090503
-Mon Nov 27 01:57:21 2023
+Mon Nov 27 11:21:42 2023
