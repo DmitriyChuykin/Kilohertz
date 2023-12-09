@@ -70,24 +70,24 @@ screen osmotr:
 label check1:
     max "Это… Les Paul  от Gibson?! Шик!"
     $ o1 = 1
-    return
+    jump osmotr1
 
 label check2:
     max "Ламповая. Это ламповая голова! Что тут за переключатели? Ревёрб, делау, волум..."
     $ o2 = 1
-    return
+    jump osmotr1
 
 label check3:
     max "Похоже, мой сосед - любитель старины. Или сам - старина."
     $ o3 = 1
-    return
+    jump osmotr1
 
 label check4:
     max "Разве в общагу можно приносить животных?.."
     $ o4 = 1
-    return
+    jump osmotr1
 
 label check5:
     max "Ого, он тоже играл в группе? Но, судя по снимку,  с тех пор прошло много лет."
     $ o5 = 1
-    return
+    jump osmotr1

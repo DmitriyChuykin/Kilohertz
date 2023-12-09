@@ -34,7 +34,7 @@ init python:
             self.speed = speed
             self.delay = delay
             self.show = manager.create(sprite)
-            self.show.x = leftX - 50 + ypos * 50
+            self.show.x = leftX - 50 - note_size + ypos * distance_b_lines
             self.show.y = -100
             self.moving = False # No point in checking if it isn't.
 
@@ -171,31 +171,35 @@ screen show_vars:
     text "_":
         pos (leftX, line + dl -10)
     text "_":
-        pos (leftX + 50, line + dl -10)
+        pos (leftX + distance_b_lines, line + dl -10)
     text "_":
-        pos (leftX + 100, line + dl -10)
+        pos (leftX + distance_b_lines * 2, line + dl -10)
     text "_":
-        pos (leftX + 150, line + dl -10)
+        pos (leftX + distance_b_lines * 3, line + dl -10)
     text "_":
         pos (leftX, line - dl +10)
     text "_":
-        pos (leftX + 50, line - dl +10)
+        pos (leftX + distance_b_lines, line - dl +10)
     text "_":
-        pos (leftX + 100, line - dl +10)
+        pos (leftX + distance_b_lines * 2, line - dl +10)
     text "_":
-        pos (leftX + 150, line - dl +10)
+        pos (leftX + distance_b_lines * 3, line - dl +10)
     text "[test]":
         pos (500, 300)
 
 label minigame:
+    $ renpy.config.skipping = None
     scene scene2 with Dissolve(2)
+    show note_bg
     python:
+        note_size = 50
+        distance_b_lines = 80
         flag = False
-        playing_time = 120
+        playing_time = 30
         t = time.time()
         leftX = 500
         line = 900
-        dl = 60
+        dl = 100
         hits = 0
         misses = 0
         combo = 0
