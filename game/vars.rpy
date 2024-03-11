@@ -25,6 +25,33 @@ define audio.upsettingFans = "audio/upsetting fans.mp3"
 define audio.waitingFans = "audio/waiting fans.mp3"
 define audio.cough = "audio/сough.mp3"
 
+init python:
+    import json
+
+    def load(file = "musics"):
+        with open(config.gamedir + "/database/" + file + ".json", encoding='utf-8') as json_file:
+            return json.load(json_file)
+            json_file.close()
+
+    def save(data, file = "musics"):
+        with open(config.gamedir + "/database/" + file + ".json", "w", encoding='utf-8') as json_file:
+            json.dump(data, json_file, indent=2, separators=(',', ': '), ensure_ascii=False)
+            json_file.close()
+
+    def minigame(track, exit):
+        renpy.config.skipping = None
+        data = load()
+        store.track = track
+        store.exit = exit
+        save(data)
+        renpy.call("start_minigame")
+
+    def get_achive(name):
+        data = load("achivements")
+        if data[name]["unlocked"] != 1:
+            data[name]["unlocked"] = 1
+            renpy.notify(name)
+        save(data, "achivements")
 screen osmotr:
     imagebutton:
         xanchor 0.5

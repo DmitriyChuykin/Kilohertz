@@ -160,7 +160,10 @@ screen say(who, what):
             action ShowMenu('save')
 
         imagebutton:
-            idle "gui/quick/auto_idle.png"
+            if preferences.afm_enable:
+                idle "gui/quick/auto_hover.png"
+            else:
+                idle "gui/quick/auto_idle.png"
             hover "gui/quick/auto_hover.png"
             xpos 60
             action Preference("auto-forward", "toggle")
@@ -345,6 +348,10 @@ screen navigation():
 
             textbutton _("Продолжить") action ShowMenu("load")
 
+            textbutton _("Стикербук") action ShowMenu("Stickerbook")
+
+            textbutton _("Мои выступления") action ShowMenu("CustomPlay")
+
         else:
 
             textbutton _("История") action ShowMenu("history")
@@ -352,6 +359,8 @@ screen navigation():
             textbutton _("Сохранить") action ShowMenu("save")
 
             textbutton _("Загрузить") action ShowMenu("load")
+
+            textbutton _("Стикербук") action ShowMenu("Stickerbook")
 
         textbutton _("Настройки") action ShowMenu("preferences")
 
@@ -451,6 +460,7 @@ style main_menu_version:
 ## Параметр scroll может быть None или один из "viewport" или "vpgrid". Этот
 ## экран предназначен для использования с одним или несколькими дочерними
 ## элементами, которые трансклюдируются (помещаются) внутрь него.
+
 
 screen game_menu(title, scroll=None, yinitial=0.0):
 

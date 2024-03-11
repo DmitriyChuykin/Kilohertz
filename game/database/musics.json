@@ -1,0 +1,31 @@
+{
+  "all tracks": {
+    "Concert1": {
+      "file": "Demetori - Koyoi wa Hyouitsu na Egoist ~ Ego, Schizoid, Beat. (Albania Illya) [Mischance Scatter].osu",
+      "playing time": 30,
+      "best percent": 100,
+      "background": "scene2",
+      "custom enable": 1,
+      "dialogs": 1,
+      "current_game": 69
+    },
+    "Concert2": {
+      "file": "Demetori - Koyoi wa Hyouitsu na Egoist ~ Ego, Schizoid, Beat. (Albania Illya) [Mischance Scatter].osu",
+      "playing time": 20,
+      "best percent": 100,
+      "background": "scene2",
+      "custom enable": 1,
+      "dialogs": 0,
+      "current_game": 0
+    },
+    "Concert3": {
+      "file": "Demetori - Koyoi wa Hyouitsu na Egoist ~ Ego, Schizoid, Beat. (Albania Illya) [Mischance Scatter].osu",
+      "playing time": 60,
+      "best percent": 100,
+      "background": "scene2",
+      "custom enable": 1,
+      "dialogs": 0,
+      "current_game": 0
+    }
+  }
+}

@@ -2,8 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/minigame.rpy", line 226: invalid syntax
-        while (not (str(N[i]).split("'")[1].split("\\")[0]  == "[HitObjects]"))
+File "game/minigame.rpy", line 49: is not terminated with a newline. (Check strings and parenthesis.)
+(Perhaps you left out a ` at the end of the first line.)
+    `       #renpy.show_screen("MinigameResult", score, combo, percent)
 
 Ren'Py Version: Ren'Py 8.1.2.23090503
-Mon Nov 27 11:21:42 2023
+Wed Mar  6 17:19:11 2024
