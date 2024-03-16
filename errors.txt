@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/minigame.rpy", line 49: is not terminated with a newline. (Check strings and parenthesis.)
-(Perhaps you left out a ` at the end of the first line.)
-    `       #renpy.show_screen("MinigameResult", score, combo, percent)
+File "game/minigame.rpy", line 127: expected an indented block
+            for sprite in sprites1[:]:
+             ^
 
 Ren'Py Version: Ren'Py 8.1.2.23090503
-Wed Mar  6 17:19:11 2024
+Sat Mar 16 22:46:18 2024

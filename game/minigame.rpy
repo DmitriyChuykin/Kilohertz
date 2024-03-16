@@ -27,7 +27,7 @@ init python:
         store.combo = 0
         store.hp -= 10
         if hp <= 0:
-            exit_from_minigame()
+            exit_from_minigame("lost")
 
     def hit():
         store.hits += 1
@@ -53,8 +53,8 @@ init python:
         else:
             data["all tracks"][track]["current_game"] = 0
             save(data)
-        store.pause = True
         renpy.show_screen("MinigameResult", str(store.hits), str(store.max_combo), str(store.percent))
+        store.pause = True
         #renpy.jump(store.exit)
 
     def chunk_update():
@@ -124,6 +124,7 @@ init python:
                     store.chunk += 50
             if (pos() > playing_time):
                 exit_from_minigame()
+                renpy.restart_interaction()
             for sprite in sprites1[:]:
                 sprite.update()
                 if sprite.y > config.screen_height:

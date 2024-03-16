@@ -65,7 +65,6 @@ screen PauseMenu():
     on "hide" action Function(pause_hide)
 
     tag menu
-    image "images/screens/screen_pause.png"
     vbox:
         imagebutton:
             idle "images/screens/button_continue_idle.png"
