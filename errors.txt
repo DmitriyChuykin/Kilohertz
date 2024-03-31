@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/minigame.rpy", line 293: unexpected indent
-        N = file.readlines()
-        ^
+File "game/minigame.rpy", line 43: invalid syntax
+        $ renpy.show(data["background"])
+         ^
 
 Ren'Py Version: Ren'Py 8.1.2.23090503
-Sun Mar 31 17:45:03 2024
+Sun Mar 31 22:55:09 2024

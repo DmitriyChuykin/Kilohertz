@@ -39,11 +39,13 @@ init python:
             store.hp = 100
 
     def exit_from_minigame(reason = "win"):
+        data = json_load()
+        renpy.scene()
+        renpy.show(data["all tracks"][track]["background"])
         store.minigame_type = "None"
         renpy.hide_screen("show_vars")
         renpy.hide_screen("say_m")
         renpy.music.stop()
-        data = json_load()
         if (reason == "win"):
             if (data["all tracks"][track]["best percent"] < percent):
                 data["all tracks"][track]["best percent"] = percent
@@ -251,7 +253,7 @@ label start_minigame():
     $ leftX = 350
     show note_bg1:
         xpos leftX - 50
-    show eva at right
+    show fan_orig at right
     python:
         is_dialogs_exist = data["dialogs"]
         if is_dialogs_exist:

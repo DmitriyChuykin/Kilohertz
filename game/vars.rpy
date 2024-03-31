@@ -124,8 +124,8 @@ screen osmotr:
     imagebutton:
         xanchor 0.5
         yanchor 0.5
-        xpos 0.8724
-        ypos 0.2314
+        xpos 0.1562
+        ypos 0.463
         idle "images/Icons/transparent/icon photo.png"
         action [Call("check5")]
         hover "images/Icons/fill/icon photo.png"
