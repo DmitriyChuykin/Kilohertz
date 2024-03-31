@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/minigame.rpy", line 127: expected an indented block
-            for sprite in sprites1[:]:
-             ^
+File "game/minigame.rpy", line 293: unexpected indent
+        N = file.readlines()
+        ^
 
 Ren'Py Version: Ren'Py 8.1.2.23090503
-Sat Mar 16 22:46:18 2024
+Sun Mar 31 17:45:03 2024

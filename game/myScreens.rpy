@@ -2,7 +2,7 @@ screen Stickerbook():
     tag menu
     image "images/screens/screen_stickerbook.jpg"
     python:
-        store.data_achivements = load("achivements")
+        store.data_achivements = json_load("achivements")
         style.musicroom_musiclabel = Style(style.button_text)
         style.musicroom_musiclabel.color = "#FF0000"
         style.musicroom_musiclabel.hover_color = "#0000FF"
@@ -23,7 +23,7 @@ screen CustomPlay():
     tag menu
     image "images/screens/screen_customplay.jpg"
     python:
-        store.data = load()["all tracks"]
+        store.data = json_load()["all tracks"]
         store.track_to_play = ""
     vbox:
         for tracks in data:
@@ -50,11 +50,11 @@ screen say_m(what, who = ""):
 
 init python:
     def pause_show():
-        store.pause = True
+        store.my_pause = True
         renpy.music.set_pause(True)
         return
     def pause_hide():
-        store.pause = False
+        store.my_pause = False
         if minigame_type == "piano":
             timing_update()
         renpy.music.set_pause(False)
@@ -65,6 +65,7 @@ screen PauseMenu():
     on "hide" action Function(pause_hide)
 
     tag menu
+    image "images/screens/screen_pause.png"
     vbox:
         imagebutton:
             idle "images/screens/button_continue_idle.png"
@@ -85,6 +86,7 @@ screen PauseMenu():
         yalign 0.45
 
 screen MinigameResult(score, combo, percent):
+    image "images/screens/screen_results.png"
     vbox:
         text "Score: " + score
         text "Combo: " + combo

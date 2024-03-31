@@ -1,6 +1,5 @@
 label day0:
     #Фон: Кулисы.
-    $ _game_menu_screen = "PauseMenu"
     scene scene1 with Dissolve(3)
     show fan with Dissolve(1)
     play music waitingFans
@@ -179,7 +178,7 @@ label day0_1:
     max "Вроде это здесь. Ну что, дамы вперёд."
     stas "В таком случае, после вас."
     #Фон: Коридор общежития.
-    scene dormitory_hallway
+    scene dormitory_hallway_evening
     play music crowd
     "В коридоре висел листок со списками заселяющихся. Кто-то из подходивших к нему радостно улыбался, кто-то - разочарованно пожимал плечами."
     #Арты: Список на заселение.
@@ -195,7 +194,8 @@ label day0_1:
     stop music
     "Дверь в мою была открыта, однако никого внутри не было."
     #Фон: Комната Максима и Айрата Рустемовича.
-    scene dormitory_max_room
+    $ renpy.config.skipping = None
+    scene dormitory_max_room_evening
     $ o1 = 0
     $ o2 = 0
     $ o3 = 0
@@ -286,5 +286,5 @@ label day0_2:
     "Айрат Рустемович тем временем сидел над учебниками и что-то сосредоточенно выписывал."
     "Глаза слипались. Я зевнул и лёг спать."
     #Затемнение.
-    scene d with Dissolve(1)
+    scene d with Dissolve(3)
     jump day1

@@ -28,71 +28,108 @@ define audio.cough = "audio/сough.mp3"
 init python:
     import json
 
-    def load(file = "musics"):
+    def file_load(filename):
+        with renpy.open_file(filename) as file:
+            store.N = file.readlines()
+            store.fsize = len(N)
+            for find in renpy.list_files():
+                if (find.split("/")[-1] == str(N[3]).split(":")[1].split("\\")[0].lstrip()):
+                    store.musicfile = find
+            #music_delay = int(str(N[51]).split("'")[1].split(",")[0])/1000
+            music_delay = 0
+            renpy.music.play(musicfile, "music")
+            store.t = time.time()
+            store.minigame_type = "piano"
+            i = 0
+            while (not (str(N[i]).split("'")[1].split("\\")[0]  == "[HitObjects]")):
+                i+=1
+            store.objects_index_start = i + 1
+            #test = "|" + str(N[157]) + "|" + str(bytes('[HitObjects]\r\n', 'utf-8')) + "|"
+            #test = N.index(bytes('[HitObjects]\r\n', 'utf-8')) + 1
+            store.chunk = 0
+            if (fsize < objects_index_start + chunk):
+                store.chunk = fsize - objects_index_start
+            file.close()
+            for notes in range(objects_index_start,objects_index_start+chunk):
+                split = str(N[notes]).split("'")[1].split(",")
+                sy = int(int(split[0])/128)
+                sx = int(split[2]) / 1000 + music_delay + music_countdown
+                if (sy == 0):
+                    sprites1.append(RhythmD(sprite1, default_speed + sx, sx, 1))
+                if (sy == 1):
+                    sprites2.append(RhythmD(sprite2, default_speed + sx, sx, 2))
+                if (sy == 2):
+                    sprites3.append(RhythmD(sprite3, default_speed + sx, sx, 3))
+                if (sy == 3):
+                    sprites4.append(RhythmD(sprite4, default_speed + sx, sx, 4))
+            return 1
+
+    def json_load(file = "musics"):
         with open(config.gamedir + "/database/" + file + ".json", encoding='utf-8') as json_file:
             return json.load(json_file)
             json_file.close()
 
-    def save(data, file = "musics"):
+    def json_save(data, file = "musics"):
         with open(config.gamedir + "/database/" + file + ".json", "w", encoding='utf-8') as json_file:
             json.dump(data, json_file, indent=2, separators=(',', ': '), ensure_ascii=False)
             json_file.close()
 
     def minigame(track, exit):
         renpy.config.skipping = None
-        data = load()
+        data = json_load()
         store.track = track
         store.exit = exit
-        save(data)
+        json_save(data)
         renpy.call("start_minigame")
 
     def get_achive(name):
-        data = load("achivements")
+        data = json_load("achivements")
         if data[name]["unlocked"] != 1:
             data[name]["unlocked"] = 1
             renpy.notify(name)
-        save(data, "achivements")
+        json_save(data, "achivements")
 screen osmotr:
     imagebutton:
         xanchor 0.5
         yanchor 0.5
-        xpos 0.1
-        ypos 0.28
-        idle "images/eye.png"
+        xpos 0.05
+        ypos 0.833
+        idle "images/Icons/transparent/icon les paul.png"
         action [Call("check1")]
-        hover "images/eye.png"
+        hover "images/Icons/fill/icon les paul.png"
     imagebutton:
         xanchor 0.5
         yanchor 0.5
-        xpos 0.3
-        ypos 0.28
-        idle "images/eye.png"
+        xpos 0.3125
+        ypos 0.833
+        idle "images/Icons/transparent/icon combo amplifier.png"
         action [Call("check2")]
-        hover "images/eye.png"
+        hover "images/Icons/fill/icon combo amplifier.png"
     imagebutton:
         xanchor 0.5
         yanchor 0.5
-        xpos 0.5
-        ypos 0.28
-        idle "images/eye.png"
+        xpos 0.224
+        ypos 0.648
+        idle "images/Icons/transparent/icon vinyl disc.png"
         action [Call("check3")]
-        hover "images/eye.png"
+        hover "images/Icons/fill/icon vinyl disc.png"
     imagebutton:
         xanchor 0.5
         yanchor 0.5
-        xpos 0.7
-        ypos 0.28
-        idle "images/eye.png"
+        xpos 0.469
+        ypos 0.532
+        idle "images/Icons/transparent/icon cat.png"
         action [Call("check4")]
-        hover "images/eye.png"
+        hover "images/Icons/fill/icon cat.png"
     imagebutton:
         xanchor 0.5
         yanchor 0.5
-        xpos 0.9
-        ypos 0.28
-        idle "images/eye.png"
+        xpos 0.8724
+        ypos 0.2314
+        idle "images/Icons/transparent/icon photo.png"
         action [Call("check5")]
-        hover "images/eye.png"
+        hover "images/Icons/fill/icon photo.png"
+
 
 label check1:
     max "Это… Les Paul  от Gibson?! Шик!"

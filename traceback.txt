@@ -1,28 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/myScreens.rpy", line 19, in script call
-    $ minigame(name, "exit_custom")
-  File "game/minigame.rpy", line 327, in script
+  File "game/chapters/day0.rpy", line 29, in script call
+    $ minigame("Concert1", "day0_1")
+  File "game/minigame.rpy", line 297, in script
     $ result = ui.interact()
-  File "game/minigame.rpy", line 327, in <module>
+  File "game/minigame.rpy", line 297, in <module>
     $ result = ui.interact()
-  File "game/minigame.rpy", line 129, in sprites_update
-    test()
-TypeError: 'str' object is not callable
+  File "game/minigame.rpy", line 123, in sprites_update
+    if (store.fsize > objects_index_start + chunk):
+UnboundLocalError: local variable 'chunk' referenced before assignment
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/myScreens.rpy", line 19, in script call
-    $ minigame(name, "exit_custom")
-  File "game/minigame.rpy", line 327, in script
+  File "game/chapters/day0.rpy", line 29, in script call
+    $ minigame("Concert1", "day0_1")
+  File "game/minigame.rpy", line 297, in script
     $ result = ui.interact()
   File "A:\renpy-8.1.2-sdk\renpy\ast.py", line 1138, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "A:\renpy-8.1.2-sdk\renpy\python.py", line 1122, in py_exec_bytecode
     exec(bytecode, globals, locals)
-  File "game/minigame.rpy", line 327, in <module>
+  File "game/minigame.rpy", line 297, in <module>
     $ result = ui.interact()
   File "A:\renpy-8.1.2-sdk\renpy\ui.py", line 299, in interact
     rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
@@ -53,11 +53,11 @@ Full traceback:
   File "render.pyx", line 266, in renpy.display.render.render
   File "A:\renpy-8.1.2-sdk\renpy\display\particle.py", line 267, in render
     redraw = self.update_function(st)
-  File "game/minigame.rpy", line 129, in sprites_update
-    test()
-TypeError: 'str' object is not callable
+  File "game/minigame.rpy", line 123, in sprites_update
+    if (store.fsize > objects_index_start + chunk):
+UnboundLocalError: local variable 'chunk' referenced before assignment
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.1.2.23090503
 Kilohertz 1.0
-Sat Mar 16 22:54:11 2024
+Sun Mar 31 18:20:16 2024

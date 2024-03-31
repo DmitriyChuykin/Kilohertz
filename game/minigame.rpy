@@ -43,26 +43,27 @@ init python:
         renpy.hide_screen("show_vars")
         renpy.hide_screen("say_m")
         renpy.music.stop()
-        data = load()
+        data = json_load()
         if (reason == "win"):
             if (data["all tracks"][track]["best percent"] < percent):
                 data["all tracks"][track]["best percent"] = percent
             data["all tracks"][track]["custom enable"] = 1
             data["all tracks"][track]["current_game"] = store.percent
-            save(data)
+            json_save(data)
+            renpy.show_screen("MinigameResult", str(store.hits), str(store.max_combo), str(store.percent))
         else:
             data["all tracks"][track]["current_game"] = 0
-            save(data)
-        renpy.show_screen("MinigameResult", str(store.hits), str(store.max_combo), str(store.percent))
-        store.pause = True
+            json_save(data)
+            renpy.show_screen("MinigameResult", str(store.hits), str(store.max_combo), "No")
+        store.my_pause = True
         #renpy.jump(store.exit)
 
     def chunk_update():
-        if not store.pause:
+        if not store.my_pause:
             with renpy.open_file(filename) as file:
                 last = objects_index_start + chunk + 50
-                if (last > fsize):
-                    last = fsize
+                if (last > store.fsize):
+                    last = store.fsize
                 for notes in range(objects_index_start + chunk, last):
                     split = str(N[notes]).split("'")[1].split(",")
                     #test += str(int(int(split[0])/128)) + " " + split[2] + "\n"
@@ -88,7 +89,7 @@ init python:
             self.moving = False # No point in checking if it isn't.
 
         def update(self):
-            if not store.pause:
+            if not store.my_pause:
                 if self.delay < pos() + line / self.speed:
                     self.moving = True
                     dt = (pos() - self.delay)
@@ -112,14 +113,14 @@ init python:
             self.show.y = value
 
     def sprites_update(st):
-        if not store.pause:
+        if not store.my_pause:
             if store.is_dialogs_exist:
                 if (store.dialog_minigame_index < len(dialogs["events"])):
                     if (pos() >=dialogs["events"][store.dialog_minigame_index][0]):
                         renpy.show_screen("say_m", dialogs["events"][store.dialog_minigame_index][2], dialogs["events"][store.dialog_minigame_index][1])
                         store.dialog_minigame_index+=1
             if (len(sprites1) + len(sprites2) + len(sprites3) + len(sprites4) < 30):
-                if (fsize > objects_index_start + chunk):
+                if (store.fsize > objects_index_start + chunk):
                     chunk_update()
                     store.chunk += 50
             if (pos() > playing_time):
@@ -160,7 +161,7 @@ init python:
         return 0.01
 
     def sprites_event(ev, x, y, st):
-        if not store.pause:
+        if not store.my_pause:
             if ev.type == pygame.KEYDOWN:
                 if ev.key == K1:
                     is_hit = False
@@ -241,18 +242,20 @@ screen show_vars:
 
 
 label start_minigame():
-    $ store.pause = False
+    $ store.my_pause = False
     if not ( _game_menu_screen == "PauseMenu") :
         $ _game_menu_screen = "PauseMenu"
     scene d
-    $ data = load()["all tracks"][track]
+    $ data = json_load()["all tracks"][track]
     $ renpy.show(data["background"])
-    show note_bg with Dissolve(1)
+    $ leftX = 350
+    show note_bg1:
+        xpos leftX - 50
     show eva at right
     python:
-        store.is_dialogs_exist = data["dialogs"]
-        if store.is_dialogs_exist:
-            dialogs = load("dialog_minigame")[store.track]
+        is_dialogs_exist = data["dialogs"]
+        if is_dialogs_exist:
+            dialogs = json_load("dialog_minigame")[store.track]
         store.dialog_minigame_index = 0
         store.timing = 0
         percent = 100
@@ -260,7 +263,6 @@ label start_minigame():
         distance_b_lines = 80
         flag = False
         playing_time = data["playing time"]
-        leftX = 500
         line = 900
         dl = 100
 
@@ -285,40 +287,10 @@ label start_minigame():
             if (find.split("/")[-1] == data["file"]):
                 filename = find
         # ОСУ конвертер
-        with renpy.open_file(filename) as file:
-            N = file.readlines()
-            fsize = len(N)
-            for find in renpy.list_files():
-                if (find.split("/")[-1] == str(N[3]).split(":")[1].split("\\")[0].lstrip()):
-                    store.musicfile = find
-            #music_delay = int(str(N[51]).split("'")[1].split(",")[0])/1000
-            music_delay = 0
-            renpy.music.play(musicfile, "music")
-            store.t = time.time()
-            store.minigame_type = "piano"
-            i = 0
-            while (not (str(N[i]).split("'")[1].split("\\")[0]  == "[HitObjects]")):
-                i+=1
-            objects_index_start = i + 1
-            #test = "|" + str(N[157]) + "|" + str(bytes('[HitObjects]\r\n', 'utf-8')) + "|"
-            #test = N.index(bytes('[HitObjects]\r\n', 'utf-8')) + 1
-            chunk = 0
-            if (fsize < objects_index_start + chunk):
-                chunk = fsize - objects_index_start
-            for notes in range(objects_index_start,objects_index_start+chunk):
-                split = str(N[notes]).split("'")[1].split(",")
-                #test += str(int(int(split[0])/128)) + " " + split[2] + "\n"
-                sy = int(int(split[0])/128)
-                sx = int(split[2]) / 1000 + music_delay + music_countdown
-                if (sy == 0):
-                    sprites1.append(RhythmD(sprite1, default_speed + sx, sx, 1))
-                if (sy == 1):
-                    sprites2.append(RhythmD(sprite2, default_speed + sx, sx, 2))
-                if (sy == 2):
-                    sprites3.append(RhythmD(sprite3, default_speed + sx, sx, 3))
-                if (sy == 3):
-                    sprites4.append(RhythmD(sprite4, default_speed + sx, sx, 4))
-                #test += str(N[line]) + "\n"
+        data = file_load(filename)
+
+        #renpy.jump(store.exit)
+
         renpy.show_screen("show_vars")
         renpy.show("_", what=manager, zorder=1)
     while True:
